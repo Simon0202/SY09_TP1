@@ -1,0 +1,203 @@
+%Information relative au document
+% !TEX encoding = MacOSRoman
+\documentclass [french, a4paper, 12pt] {report}
+\usepackage {babel}
+\pagestyle {headings}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+
+%Paquets
+\usepackage[T1]{fontenc}
+\usepackage[applemac]{inputenc}
+
+\usepackage{graphicx}
+\graphicspath{ {../images/} }
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bbm}
+
+
+%D\'ebut du rapport
+\begin{document}
+
+%Page de garde
+%\title{Rapport TP \no1 SY09}
+%\author{Cécile HEIDSIECK et Simon LAURENT}
+%\date{Printemps 2017}
+
+\thispagestyle{empty}
+
+\includegraphics[scale=0.06]{logo_utc.png}
+
+
+
+\vspace*{1cm}
+
+\begin{center}
+
+\large{\bf Rapport de SY09 : Analyse de donn\'ees et data mining \\ UNIVERSIT\'E DE TECHNOLOGIE DE COMPI\`EGNE}
+
+\vspace*{1 cm}
+
+Printemps 2017
+
+\vspace*{1cm}
+
+\vspace*{1cm}
+{\Large {\bf Cécile HEIDSIECK et Simon LAURENT}}
+\vspace*{2cm}
+
+\end{center}
+
+\flushleft{Sujet du rapport:\ \\
+{\Large {\bf Statistique descriptive et ACP}}
+
+\vspace*{1 cm}
+\flushleft{D\'epartement des \'etudiants :\ \\
+{\Large {\bf   G\'enie Biologique et G\'enie Informatique}}}\\
+
+\vspace*{1 cm}
+\flushleft{Professeurs :\ \\
+{\Large {\bf M. Sylvain ROUSSEAU
+\\ M Benjamin QUOST}}}\\
+}
+
+\newpage
+\null
+\newpage
+%Table des mati\`eres
+\tableofcontents
+
+
+%--------------------------------------------------------------------------------------------------------------
+
+%Exercice 1.1
+\chapter{Statistique Descriptive}
+	\section{Notes}
+		\subsection{Analyse}
+Dans cette première partie, nous allons décrire les données du dataset Notes:
+\textit{Pour l'intégralité des variables, le dataset à un volume de 296.}\\
+\begin{itemize}
+\item nom : variable qualitative nominale, modalités "EtuX" avec X un chiffre ;
+\item spécialité : variable qualitative nominale, modalités GB, GI, GM, GSM, GP, GSU, HuTech, ISS, TC ;
+\item niveau : variable quantitative discrète, modalités 1..6 ;
+\item statut : variable qualitative nominale, modalités : Échange, UTC;
+\item dernier diplôme obtenu : variable qualitative nominale, 12 modalités avec certaines en N/A;
+\item note médian, note finale, note totale : variable quantitative continu, modalités entre 0 et 20;
+\item correcteur médian, correcteur final : variable qualitative nominale, modalités "CorX" avec X un chiffre;
+\item résultat : qualitative ordinale, modalités A>B>C>D>E>Fx>F
+\end{itemize}
+
+\vspace*{1cm}
+
+Les valeurs nulles pour les notes du médian et du final sont des absences. Quant au NAs pour la note finale et les résultats sont la conséquence des unions des valeurs nulles. Par ailleurs, on remarque que les étudiants étrangers ne disposent pas de dernier diplôme obtenu et que leur résultat est souvent NA ou Fx ou F.\\
+La question que l'on se pose est "existe t il une corrélation entre les notes du médian et du final ?". Le résultat est le suivant \bold{0.3861882}. Ceci montre qu'il y a une faible corrélation entre la réussite d'un médian et d'un final.
+
+\vspace*{1cm}
+
+
+%Exercice 1.2
+\subsection{Corrélation}
+Dans cette seconde partie, nous allons étudier les liens statistiques entre variables. Nous allons donc afficher un ensemble de graphes en annexe et les commenter.
+Le graphe \ref{fig:gradeDensity} montre que 80\% des résultats de SY02 se situent entre 10 et 15. Nous avons également un pic à 7.5. Ce qui correspond à un ensemble de personnes ayant rencontrées les mêmes difficultés au sein de l'UV. Le graphe \ref{fig:NiveauNote} démontre clairement que plus le niveau des étudiants est élevé, plus les résultats en SY02 diminue. De même, avec le graphe \ref{fig:SpecNote} nous constatons que les étudiants en TC assistant au cours de SY02, font parti des meilleurs résultats. En revanche les ISS font partis des plus mauvais. Sachant que ISS correspond à une fin d'étude et un TC à un début, cela souligne ce que nous avons énoncé par avant concernant l'influence du niveau sur les notes. Enfin le graphe \ref{fig:CorrecteurNote)} souligne que les correcteurs 3, 4, 6 et 7 déplacent les résultats de façons significatives.
+
+
+%Exercice 2.1
+\newpage
+\section{Données crabs}
+		\subsection{Analyse}
+		Dans cet exercice nous allons analyser un jeu de données contenant 200 individus décrits par 8 variables : trois variables qualitatives et cinq variables quantitatives, dont en particulier l’espèce qui sépare les données en deux populations de 100 individus qui sont eux même identifiés en tant que femelle ou male (50 par espèce). Le but de l’étude est de déterminer s’il existe des différences morphologiques permettant d’identifier l’espèce ou le sexe d’un individu en fonction d’un ou plusieurs paramètres morphologique
+		Dans un premier temps, afin de visualiser s’il existant des différences morphologiques majeures entre les espèces ou les deux sexes, nous avons représenté les données sous forme de boxplot. Plus précisément, nous avons comparé tracé les boxplot de chaque paramètre en séparant soit selon le sexe soit l’espèce. Pour compléter l’étude, sur les boxplots, les intervalles de confiance à 95\% ont aussi été représentés par un resserrement de la boite autour de la médiane, les points où la boîte se resserre représentent les bornes de cet intervalle. 
+		\subsection{Corrélation}
+
+
+
+%--------------------------------------------------------------------------------------------------------------
+
+%Annexes
+\newpage
+\section{Annexes : Statistique descriptive}
+	\subsection{Notes}
+		\begin{figure}[h]
+			\caption{densité des notes en SY02}
+			\label{fig:gradeDensity}
+			\includegraphics[scale=0.5]{gradeDensity}	
+			\centering
+		\end{figure}
+
+
+		\begin{figure}[h]
+			\caption{influence du niveau sur les notes en SY02}
+			\label{fig:NiveauNote}
+			\includegraphics[scale=0.5]{influenceNoteNiveau}	
+			\centering
+		\end{figure}
+
+
+		\begin{figure}[h]
+			\caption{influence de la spécialité sur la note en SY02}
+			\label{fig:SpecNote}
+			\includegraphics[scale=0.5]{influenceNoteSpec}	
+			\centering
+		\end{figure}
+
+		\begin{figure}[h]
+			\caption{influence du correcteur sur la note en SY02}
+			\label{fig:CorrecteurNote}
+			\includegraphics[scale=0.5]{influenceNoteCorrecteur}	
+			\centering
+		\end{figure}
+		
+		
+\subsection{Crabs}
+		\begin{figure}[h]
+			\caption{densité des notes en SY02}
+			\label{fig:gradeDensity}
+			\includegraphics[scale=0.5]{gradeDensity}	
+			\centering
+		\end{figure}
+
+
+		\begin{figure}[h]
+			\caption{influence du niveau sur les notes en SY02}
+			\label{fig:NiveauNote}
+			\includegraphics[scale=0.5]{influenceNoteNiveau}	
+			\centering
+		\end{figure}
+
+
+		\begin{figure}[h]
+			\caption{influence de la spécialité sur la note en SY02}
+			\label{fig:SpecNote}
+			\includegraphics[scale=0.5]{influenceNoteSpec}	
+			\centering
+		\end{figure}
+
+		\begin{figure}[h]
+			\caption{influence du correcteur sur la note en SY02}
+			\label{fig:CorrecteurNote}
+			\includegraphics[scale=0.5]{influenceNoteCorrecteur}	
+			\centering
+		\end{figure}
+
+
+
+
+
+
+%--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+\end{document}		 
+
+
+
+
+
+
