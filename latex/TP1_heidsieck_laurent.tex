@@ -1,43 +1,54 @@
-%Information relative au document
-% !TEX encoding = MacOSRoman
-\documentclass [french, a4paper, 12pt] {report}
-\usepackage {babel}
-\pagestyle {headings}
-\usepackage[utf8]{inputenc}
-\usepackage{lipsum}
-
-%Paquets
+% !TEX encoding = IsoLatin
+%\documentclass[twoside]{article}
+\documentclass{article}
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[applemac]{inputenc}
-
-\usepackage{graphicx}
-\graphicspath{ {../images/} }
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{graphicx}
+\graphicspath{ {../images/} }
 \usepackage{bbm}
 
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
+\usepackage{multirow}
+\usepackage{multicol} % Style double colonne 
+\usepackage{abstract} % Customization de l'abstract 
+\usepackage{fancyhdr} % en-têtes et pieds de page 
+\usepackage{float} % Nécessaire pour les tables et figures dans l'environnement double colonne 
 
-%D\'ebut du rapport
-\begin{document}
+\usepackage[colorlinks=true,linkcolor=red,urlcolor=blue,filecolor=green]{hyperref} % hyperliens 
+
+\usepackage{dtklogos}
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=5, numbersep=5pt, language=R, basicstyle=\small,frame=leftline,captionpos=b,linewidth=175mm,breaklines=true, commentstyle=\color{green},stringstyle=\color{red},identifierstyle=\ttfamily,keywordstyle=\color{blue}}
+
+% En-têtes et pieds de page 
+
+
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+%\setlength{\parskip}{1ex} % espace entre paragraphes 
+
+\newcommand{\bsx}{\boldsymbol{x}}
+\newcommand{\transp}{^{\mathrm{t}}}
 
 %Page de garde
 %\title{Rapport TP \no1 SY09}
-%\author{Ccile HEIDSIECK et Simon LAURENT}
+%\author{Cécile HEIDSIECK et Simon LAURENT}
 %\date{Printemps 2017}
 
 \thispagestyle{empty}
 
 \includegraphics[scale=0.06]{logo_utc.png}
 
-
-
 \vspace*{1cm}
 
 \begin{center}
 
-\large{\bf Rapport de SY09 : Analyse de donn\'ees et data mining \\ UNIVERSIT\'E DE TECHNOLOGIE DE COMPI\`EGNE}
+\large{\bf Rapport de SY09 : \\Analyse de donn\'ees et data mining \\ UNIVERSIT\'E DE TECHNOLOGIE DE COMPI\`EGNE}
 
 \vspace*{1 cm}
 
@@ -46,7 +57,7 @@ Printemps 2017
 \vspace*{1cm}
 
 \vspace*{1cm}
-{\Large {\bf Ccile HEIDSIECK et Simon LAURENT}}
+{\Large {\bf Cécile HEIDSIECK et Simon LAURENT}}
 \vspace*{2cm}
 
 \end{center}
@@ -61,131 +72,595 @@ Printemps 2017
 \vspace*{1 cm}
 \flushleft{Professeurs :\ \\
 {\Large {\bf M. Sylvain ROUSSEAU
-\\ M Benjamin QUOST}}}\\
+\\ M. Benjamin QUOST}}}\\
 }
 
 \newpage
 \null
 \newpage
-%Table des mati\`eres
-\tableofcontents
 
+
+%Début du rapport
+\begin{document}
+
+%Table des matières
+\tableofcontents
+\newpage
+\begin{multicols}{2}
 
 %--------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------
+%Partie 1
+%--------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------
 
-%Exercice 1.1
-\chapter{Statistique Descriptive}
-	\section{Notes}
-		\subsection{Analyse}
-Dans cette premire partie, nous allons dcrire les donnes du dataset Notes:
-\textit{Pour l'intgralit des variables, le dataset ˆ un volume de 296.}\\
+
+%-----------------------------------------------------------------------------------------------------
+%Exercice 1
+\section{Statistique Descriptive}
+	\subsection{Notes}
+		\subsubsection{Analyse}
+Dans cette première partie, nous allons décrire les données du dataset Notes:
+\textit{Pour l'intégralité des variables, le dataset à un volume de 296.}\\
+
 \begin{itemize}
-\item nom : variable qualitative nominale, modalits "EtuX" avec X un chiffre ;
-\item spcialit : variable qualitative nominale, modalits GB, GI, GM, GSM, GP, GSU, HuTech, ISS, TC ;
-\item niveau : variable quantitative discrte, modalits 1..6 ;
-\item statut : variable qualitative nominale, modalits : ƒchange, UTC;
-\item dernier dipl™me obtenu : variable qualitative nominale, 12 modalits avec certaines en N/A;
-\item note mdian, note finale, note totale : variable quantitative continu, modalits entre 0 et 20;
-\item correcteur mdian, correcteur final : variable qualitative nominale, modalits "CorX" avec X un chiffre;
-\item rsultat : qualitative ordinale, modalits A>B>C>D>E>Fx>F
+\item nom : variable qualitative nominale, modalités "EtuX" avec X un chiffre ;
+\item spécialité : variable qualitative nominale, modalités GB, GI, GM, GSM, GP, GSU, HuTech, ISS, TC ;
+\item niveau : variable quantitative discrète, modalités 1..6 ;
+\item statut : variable qualitative nominale, modalités : Échange, UTC;
+\item dernier diplôme obtenu : variable qualitative nominale, 12 modalités avec certaines en N/A;
+\item note médian, note finale, note totale : variable quantitative continu, modalités entre 0 et 20;
+\item correcteur médian, correcteur final : variable qualitative nominale, modalités "CorX" avec X un chiffre;
+\item résultat : qualitative ordinale, modalités A>B>C>D>E>Fx>F
 \end{itemize}
 
 \vspace*{1cm}
 
-Les valeurs nulles pour les notes du mdian et du final sont des absences. Quant au NAs pour la note finale et les rsultats sont la consquence des unions des valeurs nulles. Par ailleurs, on remarque que les tudiants trangers ne disposent pas de dernier dipl™me obtenu et que leur rsultat est souvent NA ou Fx ou F.\\
-La question que l'on se pose est "existe t il une corrlation entre les notes du mdian et du final ?". Le rsultat est le suivant \bold{0.3861882}. Ceci montre qu'il y a une faible corrlation entre la russite d'un mdian et d'un final.
+Les valeurs nulles pour les notes du médian et du final sont des absences. Quant au NAs pour la note finale et les résultats sont la conséquence des unions des valeurs nulles. Par ailleurs, on remarque que les étudiants étrangers ne disposent pas de dernier diplôme obtenu et que leur résultat est souvent NA ou Fx ou F.\\
+La question que l'on se pose est "existe t il une corrélation entre les notes du médian et du final ?". Le résultat est le suivant \textbf{0.3861882}. Ceci montre qu'il y a une faible corrélation entre la réussite d'un médian et d'un final. Néanmoins, une corrélation existe entre note final et résultat (\textbf{0.8828539}), ce qui montre que le final conditionne l'obtention de l'UV.
 
 \vspace*{1cm}
 
 
-%Exercice 1.2
-\subsection{Corrlation}
-Dans cette seconde partie, nous allons tudier les liens statistiques entre variables. Nous allons donc afficher un ensemble de graphes en annexe et les commenter.
-Le graphe \ref{fig:gradeDensity} montre que 80\% des rsultats de SY02 se situent entre 10 et 15. Nous avons galement un pic ˆ 7.5. Ce qui correspond ˆ un ensemble de personnes ayant rencontres les mmes difficults au sein de l'UV. Le graphe \ref{fig:NiveauNote} dmontre clairement que plus le niveau des tudiants est lev, plus les rsultats en SY02 diminue. De mme, avec le graphe \ref{fig:SpecNote} nous constatons que les tudiants en TC assistant au cours de SY02, font parti des meilleurs rsultats. En revanche les ISS font partis des plus mauvais. Sachant que ISS correspond ˆ une fin d'tude et un TC ˆ un dbut, cela souligne ce que nous avons nonc par avant concernant l'influence du niveau sur les notes. Enfin le graphe \ref{fig:CorrecteurNote)} souligne que les correcteurs 3, 4, 6 et 7 dplacent les rsultats de faons significatives.
+
+\subsubsection{Corrélation}
+Dans cette seconde partie, nous allons étudier les liens statistiques entre variables. Nous allons donc afficher un ensemble de graphes en annexe et les commenter.
+Le graphe \ref{fig:gradeDensity} montre que 80\% des résultats de SY02 se situent entre 10 et 15. Nous avons également un pic à 7.5. 
+Ce qui correspond à un ensemble de personnes ayant rencontrées les mêmes difficultés au sein de l'UV. Le graphe \ref{fig:NiveauNote} démontre clairement que plus le niveau des étudiants est élevé, plus les résultats en SY02 diminue. De même, avec le graphe \ref{fig:SpecNote} nous constatons que les étudiants en TC assistant au cours de SY02, font parti des meilleurs résultats. En revanche les ISS font partis des plus mauvais. Sachant que ISS correspond à une fin d'étude et un TC à un début, cela souligne ce que nous avons énoncé par avant concernant l'influence du niveau sur les notes. Enfin le graphe \ref{fig:cor_Note} souligne que les correcteurs 3, 4, 6 et 7 déplacent les résultats de façons significatives.
 
 
-%Exercice 2.1
-\newpage
-\section{Donnes crabs}
-		\subsection{Analyse}
-		Dans cet exercice nous allons analyser un jeu de donnes contenant 200 individus dcrits par 8 variables : trois variables qualitatives et cinq variables quantitatives, dont en particulier lÕespce qui spare les donnes en deux populations de 100 individus qui sont eux mme identifis en tant que femelle ou male (50 par espce). Le but de lÕtude est de dterminer sÕil existe des diffrences morphologiques permettant dÕidentifier lÕespce ou le sexe dÕun individu en fonction dÕun ou plusieurs paramtres morphologique
-		Dans un premier temps, afin de visualiser sÕil existant des diffrences morphologiques majeures entre les espces ou les deux sexes, nous avons reprsent les donnes sous forme de boxplot. Plus prcisment, nous avons compar trac les boxplot de chaque paramtre en sparant soit selon le sexe soit lÕespce. Pour complter lÕtude, sur les boxplots, les intervalles de confiance ˆ 95\% ont aussi t reprsents par un resserrement de la boite autour de la mdiane, les points o la bo”te se resserre reprsentent les bornes de cet intervalle. 
-		\subsection{Corrlation}
+
+%--------------------------------------------------------------------------------------------
+%Exercice 2
+\subsection{Données crabs}
+		\subsubsection{Analyse}
+		Dans cet exercice nous allons analyser un jeu de données contenant 200 individus décrits par 8 variables : trois variables qualitatives et cinq variables quantitatives, dont en particulier l'espèce qui sépare les données en deux populations de 100 individus qui sont eux même identifiés en tant que femelle ou male (50 par espèce). Le but de l'étude est de déterminer s'il existe des différences morphologiques permettant d'identifier l'espèce ou le sexe d'un individu en fonction d'un ou plusieurs paramètres morphologique.\\
+		
+Dans un premier temps, afin de visualiser s'il existe des différences morphologiques majeures entre les espèces ou les deux sexes, nous avons représenté les données sous forme de boxplot (cf \ref{fig:SexeMorpho} pour le sexe et \ref{fig:EspeceMorpho} pour l'espèce). Plus précisément, nous avons comparé tracé les boxplot de chaque paramètre en séparant soit selon le sexe soit l'espèce. Pour compléter l'étude, sur les boxplots, les intervalles de confiance à 95\% ont aussi été représentés par un resserrement de la boite autour de la médiane, les points où la boîte se resserre représentent les bornes de cet intervalle.\\
+		
+		Selon l'espèce, les intervalles de confiance des différents paramètres morphologiques ne se superposent pas ce qui indique bien qu'il y a des différences morphologiques significatives entre les deux espèces. En revanche, pour le sexe ce n'est le cas que pour une caractéristique : rear width, (largeur arrière).\\
+		
+Cependant, pour toutes les caractéristiques, que ce soit selon le sexe ou l'espèce, les extrémités des moustaches se superposent, ce qui nous empêche avec cette représentation d'identifier avec certitude le sexe ou l'espèce d'un individu selon une ou plusieurs caractéristiques morphologiques.\\
+
+		\subsubsection{Corrélation}
+Le calcul de la corrélation entre les différentes variables est présenté dans le tableau.
+
+\begin{center}
+\begin{tabular}{|*{6}{c|}}
+    	\hline
+     	 & FL & RW & CL & CW & BD\\
+    	\hline
+     	FL & 1.00 & 0.91 & 0.98 & 0.96 & 0.99\\
+    	\hline
+	RW & 0.91 & 1.00 & 0.89 & 0.90 & 0.89\\
+   	\hline
+	CL & 0.98 & 0.89 & 1.00 & 1.00 & 0.98\\
+    	\hline
+	CW & 0.96 & 0.90 & 1.00 & 1.00 & 0.97\\
+   	\hline
+	BD & 0.99 & 0.89 & 0.98 & 0.97 & 1.00\\
+       \hline
+\end{tabular}
+\end{center}
+
+
+Il est observé que toutes les variables sont très corrélées entre elles. En effet, les coefficients de corrélation sont tous supérieurs à 0.89. Ce résultat peut être expliqué par le fait que les variables ne sont pas indépendantes les unes des autres : la taille des membres des individus est proportionnelle à la leur taille. Pour s'affranchir de ce phénomène, il convient de diviser la taille de chaque membre de chaque individu par la somme de la taille de de ses membre. La matrice de corrélation obtenue après le traitement des données est représentée dans la matrice suivante.\\
+
+\begin{center}
+\begin{tabular}{|*{6}{c|}}
+    	\hline
+     	 & FL & RW & CL & CW & BD\\
+    	\hline
+     	FL & 1.00 & -0.12 & -0.24 & -0.78 & 0.52\\
+    	\hline
+	RW & -0.12 & 1.00 & -0.83 & -0.20 & -0.46\\
+   	\hline
+	CL & -0.24 & -0.83 & 1.00 & 0.42 & 0.10\\
+    	\hline
+	CW & -0.78 & -0.20 & 0.42 & 1.00 & -0.65\\
+   	\hline
+	BD &  0.52 & -0.46  & 0.10 & -0.65 & 1.00\\
+       \hline
+\end{tabular}
+\end{center}
+Les résultats obtenus indiquent que le traitement a permis de décorréler les variables entre elles. Les variables les plus corrélés sont désormais FL et CW (coefficient de corrélation de -0.78) et CL et RW (coefficient de corrélation de -0.83). \\
+
+Les figures en annexe représentent les graphiques matriciels des données traitées, en les distinguant (a) selon le sexe et (b) selon l'espèce. Des nuages de points distincts sont observés ce qui nous permet maintenant de distinguer l'espèce ou le sexe d'un individu par ses caractéristiques morphologiques. Nous avons donc pour (a) les figures \ref{fig:CorEspece} et \ref{fig:CorEspeceT} et pour (b) les figures \ref{fig:CorSexe} et \ref{fig:CorSexeT}
+
+
+%--------------------------------------------------------------------------------------------
+%Exercice 3
+\subsection{Données Pima}
+		\subsubsection{Analyse}
+		Dans le jeu de données suivant, nous avons des variables quantitatives discrètes (npreg, glu, bp, skin, age), quantitatives continues (ami, ped) et qualitative nominale (z).
+		Nous utilisons la fonction summary pour obtenir une description de ces dernières dans le tableau suivant:
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{%
+\begin{tabular}[size=0.8]{|*{8}{c|}}
+    	\hline
+     	 & npreg & glu & bp & skin & vmi & ped & age\\
+    	\hline
+     	Min & 0.000 & 56.00 & 24.00 & 7.00 & 18.20 & 0.0850 & 21.00\\
+    	\hline
+	1st Qu &  1.000 & 98.75 & 64.00 & 22.00 & 27.88 & 0.2587 & 23.00\\
+   	\hline
+	Median & 2.000 & 115.00 & 71.51 & 29.18 & 32.89 & 0.4160 & 28.00\\
+    	\hline
+	Mean & 3.517 & 121.03 & 72.00 & 29.00 & 32.80 & 0.5030 & 31.61\\
+   	\hline
+	3rd Qu & 5.000 & 141.25 & 80.00 & 36.00 & 36.90 & 0.6585 & 38.00\\
+       \hline
+       	Max &  17.000 & 199.00 & 110.00 & 99.00 & 67.10 & 2.420 & 81.00\\
+       \hline
+\end{tabular}
+}
+\end{table}
+	
+	avec en plus  z_{1} = 355 | z_{2} = 177 \\
+	
+Au vu de ce tableau, il semble difficile de distinguer un pattern. Nous allons donc engendrer la matrice de corrélation afin de voir si un/des liens existent entre les variables. De là nous constatons que les couples suivant sont corrélés: (npreg,age) et (skin,bmi).
+		
+	
+		\subsubsection{Liens statistiques}
+		Au vu des résultats précédemment obtenues, nous allons essayer d'identifier des liens statistiques forts entre variables. On s'intéressera en particulier au facteur diabète comme le montre figure \ref{fig:diab}. 1 signifie diabète alors que 1 signifie sans diabète. On remarque que sur l'ensemble des 5 sous graphes, le taux plasmatique de glucose dans le sang est le plus influencé par le diabète. En effet, au-deçà de 100, les nombre de diabétique augmente alors que le nombre de non diabétique diminue
+
+
+%--------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------
+%Partie 2
+%--------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------
+
+
 
 
 
 %--------------------------------------------------------------------------------------------------------------
-
-%Annexes
+%Exercice 1
 \newpage
-\section{Annexes : Statistique descriptive}
-	\subsection{Notes}
-		\begin{figure}[h]
-			\caption{densit des notes en SY02}
-			\label{fig:gradeDensity}
-			\includegraphics[scale=0.5]{gradeDensity}	
-			\centering
+\section{Analyse en composantes principales}
+\subsection{Exercice théorique}
+Cet exercice porte sur l'étude des correcteurs du jeu de données notes. Le nouveau jeu de donnée formé compte 8 individus : les correcteurs, et 4 variables : les moyennes et écart types des notes du médian et du final. Pour les correcteurs 2 et 8 certaines notes manquent, ainsi, dans une première partie l'étude se concentrera sur les 6 autres individus, puis dans une seconde partie une solution sera apportée pour pallier aux valeurs manquantes. L'ensemble du code se trouve dans la section 4 - code.\\
+		\subsubsection{Axes factoriels}
+		Le calcul des axes factoriels de l'ACP se fait en plusieurs étapes: \\
+		La première étape consiste à centrer la matrice. Ensuite, nous calculons la matrice d'inertie ou matrice de variances $X_{v}$ grace a la formule suivante :\\
+$$X_{v} =  \frac{1}{6} X_{c^{T}}*X_{c}$$
+$$X_{v} = \frac{1}{n}*X_{c^{T}}*X_{c}$$
+		Le calcul des valeurs propres : \lambda_{1} = 0.98, \lambda_{2} = 0.37, \lambda_{3} = 0.08, \lambda_{4} = 0.05 \\ de la matrice de variances permet d'obtenir leurs vecteurs propres associés ou axes principaux d'inertie. Il est ensuite possible de calculer le pourcentage d'inertie expliquée de chaque axe (dans l'ordre) : 66.10, 24.79, 5.61 et 3.51. Le pourcentage d'inertie expliquée par le premier plan factoriel (formé par les deux premiers axes) est 90.88.
+		\subsubsection{Composantes principales}
+		La matrice des composantes principales C se calcule à partir de la matrice centrée $X_c$ et de la matrice des axes factoriels : $C=X_c . U$
+		Ces composantes principales permettent d'obtenir la représentation des six individus dans le premier plan factoriel. Comme le montre la figure \ref{fig:premierPlanFact} en annexe.
+		La proximité des correcteurs 7 et 1 puis des correcteurs 5 et 8 sur cette représentation peut être interprétée comme le fait qu'ils ont un comportement similaire. 
+		
+		\subsubsection{Représentation dans le premier plan factoriel}
+		Tout comme cela a été fait pour les individus, il est possible de représenter les variables en fonction des individus et de les analyser. Il n'est pas nécessaire de refaire tous les calculs fait précédemment, les axes factoriels et ainsi les composantes principales pour les variables se déduisent des axes factoriels de l'analyse de nuage de points-individus. Pour cela, la corrélation entre les vecteurs variable et les composantes principales normées des individus est étudiée et permet le calcul de la matrice
+A partir de cette matrice, il est possible de représenter les quatre variables dans le premier plan factoriel \ref{fig:varPremierPlanFact}.
+Les trois variables moy.median, std median et moy.final se trouvent sur le cercle de corrélation ce qui indique qu'elles sont bien représentées, ce qui n'est pas le cas de la variable std.final. Les variables moy.median et moy.final sont positionnées à angle droit ce qui indique qu'elles ne sont pas du tout corrélées.
+		
+		\subsubsection{Calculer l'expression  $\sum_{\alpha=1}^{k}c_{\alpha}u_{\alpha} }
+		\begin{itemize}
+			\item $k=1\\
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+-0.11 & 0.32  & -1.06 & 0.07  \\
+0.15  & -0.44 & 1.43  & -0.09 \\
+-0.04 & 0.12  & -0.38 & 0.03  \\
+0.12  & -0.34 & 1.10  & -0.07 \\
+-0.03 & 0.07  & -0.24 & 0.02  \\
+-0.09 & 0.26  & -0.85 & 0.06 
+\end{tabular}
+\end{table}
+			\item $k=2\\
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+0.17  & 0.43  & -1.05 & 0.11  \\
+0.91  & -0.16 & 1.44  & 0.02  \\
+-0.26 & 0.04  & -0.39 & -0.01 \\
+-0.83 & -0.69 & 1.09  & -0.21 \\
+0.43  & 0.24  & -0.23 & 0.08  \\
+-0.42 & 0.14  & -0.86 & 0.01 
+\end{tabular}
+\end{table}
+\newpage
+			\item $k=3\\
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+0.13  & 0.47  & -1.03 & 0.20  \\
+0.90  & -0.15 & 1.44  & 0.03  \\
+-0.08 & -0.24 & -0.52 & -0.51 \\
+-0.86 & -0.63 & 1.11  & -0.12 \\
+0.41  & 0.28  & -0.21 & 0.15  \\
+-0.51 & 0.27  & -0.79 & 0.25 
+\end{tabular}
+\end{table}
+			\item $k=4\\
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+0.22  & 0.16  & -1.12 & 0.42  \\
+0.91  & -0.20 & 1.43  & 0.06  \\
+-0.09 & -0.21 & -0.52 & -0.53 \\
+-0.85 & -0.70 & 1.09  & -0.07 \\
+0.34  & 0.53  & -0.14 & -0.04 \\
+-0.54 & 0.41  & -0.75 & 0.15 
+\end{tabular}
+\end{table}
+		\end{itemize}
+		La matrice obtenue avec k = 4 correspond à la matrice d'origine Xc.
+		
+		
+		\subsubsection{ACP et deux premiers plans factoriels}	
+		On souhaite représenter les individus initialement écartés de l'ACP. Remplacer chacune de leurs valeurs manquantes par la moyenne de la variable correspondante (imputation par la moyenne), puis représenter ces individus dans les deux premiers plans factoriels.
+Afin de pouvoir réaliser une ACP avec les 8 individus, il est possible de remplacer les valeurs manquantes par la moyenne de la variable correspondante. L'obtention de la matrice des composantes principales avec ces données se fait de la même manière que précédemment, avec les 6 individus. Après calculs on obtient une nouvelle matrice qui nous permet de représenter tous les individus dans les deux premiers plans factoriels \ref{fig:8PremierPlanFact} et \ref{fig:8secondPlanFact}
+	
+	
+%--------------------------------------------------------------------------------------------------------------
+%Exercice 2
+\subsection{Utilisation des outils R}
+		Grâce aux différentes fonctions proposées par R, nous allons tenter d'effectuer l'ACP du jeu de données de notes qui a été étudié en cours. Pour cela nous allons créer la matrice. Puis afin de pouvoir réaliser l'ACP, il est tout d'abord indispensable de centrer notre matrice. A partir de la matrice centrée en colonne nous allons calculer la matrice de variance, les axes principaux d'inertie et enfin les composantes principales.\\
+		La fonction summary et l'argument scores sur princomp permettent de retrouver les composantes principales. $sdev^{2}$ retourne les valeurs propres. Les vecteurs propres sont retournés grâce à loadings. 
+\begin{itemize}
+\item La fonction biplot quant à elle affiche les individus et les variables dans le premier plan factoriel. La fonction biplot.princomp bénéficie de paramètres supplémentaires par rapport à la fonction biplot : "choices" pour choisir les composantes principales à représenter, "scale" pour obtenir une représentation standard des données.
+		
+\item Princomp permet de calculer automatiquement les composantes principales d'une matrice passée en argument et retourne un objet R constitué de plusieurs variables membres :
+		
+\item sdev : écarts types des composantes principales. ($sdev^{2}$ correspondant aux valeurs propres)\\
+\item loadings : matrice des vecteurs propres.\\
+\item scores : matrice des composantes principales.
+\item biplot.princomp offre la possibilité de représenter les variables dans un des plans factoriels
+\end{itemize}	
+	
+				
+%--------------------------------------------------------------------------------------------------------------
+%Exercice 3
+\newpage
+\subsection{Données Crabs}
+Cette étude vise à utiliser l'ACP pour trouver une représentation des crabes qui permettent de distinguer visuellement différents groupes, liés à l'espèce et au sexe.
+Afin de compléter l'étude réalisée à l'exercice 1.2. sur le jeu de données CRABS, nous nous intéressons à l'utilisation de l'ACP pour visualiser les différents groupes.
+		\subsubsection{ACP}
+		L'ACP sur les données non traitées est réalisée sur R grâce à la fonction princomp préalablement introduite. La représentation biplot dans le premier plan factoriel et les pourcentages d'inertie expliquée pour chaque axe sont tracés dans la figure suivante. \ref{fig:inertie_avant_traitement} et \ref{fig:acp_avant_traitement}
+		Le biplot ne nous permet pas de distinguer de groupes, de plus les variables ont toutes la même direction. Ces observations indiquent que l'information n'est pas bien répartie sur les axes factoriels et que les variables sont très corrélées. Ce constat est confirmé par la valeur très importante du pourcentage d'inertie expliquée du premier axe factoriel et rejoint les observations réalisées lors de l'étude de l'exercice 1.2.
+		
+		\subsubsection{Amélioration}
+		Afin de rendre visible la présence de groupes parmi le jeu de données CRABS avec l'ACP il est possible d'appliquer à crasbsquant le même traitement que lors de l'analyse dans l'exercice 2.1, c'est-à-dire diviser la taille de chaque membre par la somme de tous les membres d'un individu. Une nouvelle ACP est réalisée sur les données traitées. La représentation biplot et les pourcentages d'inertie expliquée pour chaque axe sont tracés dans les figures suivantes \ref{fig:inertie_apres_traitement} et \ref{acp_apres_traitement}.\\
+		Les pourcentages d'inertie expliquée par les deux premiers axes factoriels sont respectivement de 47.65 et 44.00, ce qui représente 91.65 d'inerte expliquée par le premier plan factoriel. On distingue 4 groupes d'individus sur le biplot représentant le premier plan factoriel.
+		
+		
+		
+%--------------------------------------------------------------------------------------------------------------
+%Exercice 3
+\subsection{Données Pima}
+Après plusieurs tentatives d'ACP sur les données, il est impossible de trouver une représentation simple qui permette de distinguer les deux catégories de patients. C'est ce que montre la figures ci dessous.
+		\begin{figure}[H]
+		\begin{center}
+			\caption{Premier Plan factoriel}
+			\includegraphics[width=0.6\textwidth]{pima_acp}	
+		\end{center}
 		\end{figure}
 
 
-		\begin{figure}[h]
-			\caption{influence du niveau sur les notes en SY02}
-			\label{fig:NiveauNote}
-			\includegraphics[scale=0.5]{influenceNoteNiveau}	
-			\centering
+		
+		
+
+		
+		
+		
+%--------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------
+%Annexes
+%--------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------
+\newpage
+\section{Annexes}
+\subsection{Statistique descriptive}
+	\subsubsection{Notes}
+		\begin{figure}[H]
+		\begin{center}
+			\caption{\label{fig:gradeDensity}densité des notes en SY02}
+			\includegraphics[width=0.4\textwidth]{gradeDensity}	
+		\end{center}
 		\end{figure}
 
 
-		\begin{figure}[h]
-			\caption{influence de la spcialit sur la note en SY02}
-			\label{fig:SpecNote}
-			\includegraphics[scale=0.5]{influenceNoteSpec}	
+		\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=0.4\textwidth]{influenceNoteNiveau}	
+			\caption{\label{fig:NiveauNote}influence du niveau sur les notes en SY02}
+		\end{center}
+		\end{figure}
+
+
+		\begin{figure}[H]
+			\caption{\label{fig:SpecNote}influence de la spécialité sur la note en SY02}
+			\includegraphics[width=0.4\textwidth]{influenceNoteSpec}	
 			\centering
 		\end{figure}
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\caption{influence du correcteur sur la note en SY02}
-			\label{fig:CorrecteurNote}
-			\includegraphics[scale=0.5]{influenceNoteCorrecteur}	
+			\label{fig:cor_Note}
+			\includegraphics[width=0.4\textwidth]{influenceNoteCorrecteur}	
 			\centering
 		\end{figure}
 		
 		
-\subsection{Crabs}
-		\begin{figure}[h]
-			\caption{densit des notes en SY02}
-			\label{fig:gradeDensity}
-			\includegraphics[scale=0.5]{gradeDensity}	
+	\subsubsection{Crabs}
+		\begin{figure}[H]
+			\caption{Sexe en fonction des caractéristiques morphologiques}
+			\label{fig:SexeMorpho}
+			\includegraphics[width=0.4\textwidth]{boxplot_sexe}	
 			\centering
 		\end{figure}
 
 
-		\begin{figure}[h]
-			\caption{influence du niveau sur les notes en SY02}
-			\label{fig:NiveauNote}
-			\includegraphics[scale=0.5]{influenceNoteNiveau}	
+		\begin{figure}[H]
+			\caption{Espèces en fonction des caractéristiques morphologiques}
+			\label{fig:EspeceMorpho}
+			\includegraphics[width=0.4\textwidth]{boxplot_espece}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{Sexe en fonction des caractéristiques morphologiques}
+			\label{fig:CorEspece}
+			\includegraphics[width=0.4\textwidth]{matrice_cor_espece}	
 			\centering
 		\end{figure}
 
 
-		\begin{figure}[h]
-			\caption{influence de la spcialit sur la note en SY02}
-			\label{fig:SpecNote}
-			\includegraphics[scale=0.5]{influenceNoteSpec}	
+		\begin{figure}[H]
+			\caption{Espèces en fonction des caractéristiques morphologiques}
+			\label{fig:CorEspeceT}
+			\includegraphics[width=0.4\textwidth]{matrice_cor_espece_ap_trans}	
+			\centering
+		\end{figure}
+		
+		
+		\begin{figure}[H]
+			\caption{Espèces en fonction des caractéristiques morphologiques}
+			\label{fig:CorSexe}
+			\includegraphics[width=0.4\textwidth]{matrice_cor_sexe}	
 			\centering
 		\end{figure}
 
-		\begin{figure}[h]
-			\caption{influence du correcteur sur la note en SY02}
-			\label{fig:CorrecteurNote}
-			\includegraphics[scale=0.5]{influenceNoteCorrecteur}	
+		\begin{figure}[H]
+			\caption{Sexe en fonction des caractéristiques morphologiques}
+			\label{fig:CorSexeT}
+			\includegraphics[width=0.4\textwidth]{matrice_cor_sexe_ap_trans}	
 			\centering
 		\end{figure}
 
 
+	\subsubsection{Pima}
+		\begin{figure}[H]
+			\caption{Influence du diabète}
+			\label{fig:diab}
+			\includegraphics[width=0.4\textwidth]{diabete}	
+			\centering
+		\end{figure}
+
+\newpage		
+\subsection{Analyse en composantes principales}
+	\subsubsection{Exercice théorique}
+		\begin{figure}[H]
+			\caption{6_individus_premier_plan_factoriel}
+			\label{fig:premierPlanFact}
+			\includegraphics[width=0.4\textwidth]{6_individus_premier_plan_factoriel}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{variables_premier_plan_factoriel}
+			\label{fig:varPremierPlanFact}
+			\includegraphics[width=0.4\textwidth]{variables_premier_plan_factoriel}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{8_individus_premier_plan_factoriel}
+			\label{fig:8PremierPlanFact}
+			\includegraphics[width=0.4\textwidth]{8_individus_premier_plan_factoriel}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{8_individus_second_plan_factoriel}
+			\label{fig:8secondPlanFact}
+			\includegraphics[width=0.4\textwidth]{8_individus_second_plan_factoriel}	
+			\centering
+		\end{figure}
+		
+				
+	\subsubsection{ACP Crabs}
+		\begin{figure}[H]
+			\caption{inertie_avant_traitement}
+			\label{fig:inertie_avant_traitement}
+			\includegraphics[width=0.4\textwidth]{inertie_avant_traitement}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{acp_avant_traitement}
+			\label{fig:acp_avant_traitement}
+			\includegraphics[width=0.4\textwidth]{acp_avant_traitement}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{inertie_apres_traitement}
+			\label{fig:inertie_après_traitement}
+			\includegraphics[width=0.4\textwidth]{inertie_apres_traitement}	
+			\centering
+		\end{figure}
+		
+		\begin{figure}[H]
+			\caption{acp_apres_traitement}
+			\label{fig:acp_après_traitement}
+			\includegraphics[width=0.4\textwidth]{acp_apres_traitement}	
+			\centering
+		\end{figure}
+		
+\end{multicols}
+\newpages
+\section{code}
+	\begin{lstlisting}
+notes <- read.csv("sy02-p2016.csv", na.strings="", header=T);
+moy.median <- aggregate(note.median~correcteur.median, data=notes, FUN=mean)
+names(moy.median) <- c("correcteur","moy.median")
+std.median <- aggregate(note.median~correcteur.median, data=notes, FUN=sd)
+names(std.median) <- c("correcteur","std.median")
+median <- merge(moy.median, std.median)
+moy.final <- aggregate(note.final~correcteur.final, data=notes, FUN=mean)
+names(moy.final) <- c("correcteur","moy.final")
+std.final <- aggregate(note.final~correcteur.final, data=notes, FUN=sd)
+names(std.final) <- c("correcteur","std.final")
+final <- merge(moy.final, std.final)
+correcteurs <- merge(median, final, all=T)
+corr.acp <- correcteurs[-c(2,8),]
+
+#####ACP sur les individus#####
+#convertir le data.frame en matrice pour faciliter les calculs
+X<-as.matrix(corr.acp[2:5],nrow=6,rcol=4)
+#centrage de la matrice
+Xc<-t(t(X)-apply(X,2,mean))
+rownames(Xc)<-c("Cor1","Cor3","Cor4","Cor5","Cor6","Cor7")
+round(Xc,digits=2)
+#matrice de variance
+Xv<-(1/6)*(t(Xc)%*%Xc)
+round(Xv,digits = 2)
+#calul des valeurs propres et des vecteurs propres
+(resume<-eigen(Xv))
+#calcul des pourcentages d'inertie expliquée pour chacun des axes et inertie cumulée
+bilan<-data.frame(c(1:4),resume$values,100*resume$values/sum(resume$values))
+colnames(bilan)<-c("Axis","Eigen value","Proportion")
+bilan$Cummulative<-cumsum(bilan[3])
+colnames(bilan[,4])<-"Cummulative"
+bilan
+#stockage des vecteurs propres dans la matrice U
+U<-resume$vectors
+colnames(U)<-c("U1","U2","U3","U4")
+round(U,digits=2)
+#calcul de la matrice des composantes principales
+C<-Xc%*%U
+rownames(C)<-c("Cor1","Cor3","Cor4","Cor5","Cor6","Cor7")
+round(C,digits=2)
+#calculer la contribution relative des axes aux individus
+cor<-C^2/diag(Xc%*%t(Xc))
+print("contribution relative des axes aux individus")
+round(cor,digits=2)
+#calculer la contribution relative des individus aux axes
+ctr<-1/6*C^2/matrix(resume$values,nrow=6,ncol=4,byrow=TRUE)
+round(ctr,digits=2)
+
+######représentation des variables######
+#calcul des corrélations entre les variables intiales normées et les composantes principales normées 
+sigma<-diag(1/(sqrt(5/6*apply(Xc,2,sd)^2)))
+vp<-diag(1/sqrt(resume$values))
+Dp<-diag(1/6,nrow=6,ncol=6)
+cor.var<-sigma%*%t(Xc)%*%Dp%*%C%*%vp
+rownames(cor.var)<-c("moy.median","std.median","moy.final","std.final")
+round(cor.var,digits=2)
+
+######représentations graphiques######
+#représentation des individus dans le premier plan factoriel
+x11()
+plot(C[,c(1,2)],xlab = "C[,1]",ylab="C[,2]",type="n",main="Représentation des individus dans le premier plan factoriel")
+text(C[,c(1,2)],labels=corr.acp$correcteur)
+abline(h=0,v=0)
+#représentation des individus dans le deuxième plan factoriel
+x11()
+plot(C[,c(1,3)],xlab = "C[,1]",ylab="C[,3]",type="n",main="Représentation des individus dans le deuxième plan factoriel")
+text(C[,c(1,3)],labels=corr.acp$correcteur)
+abline(h=0,v=0)
+
+#représentation des variables dans le premier plan factoriel
+x11()
+plot(-1.5:1.5,-1.5:1.5,xlab = "C[,1]",ylab="C[,2]",type="n", main="Représentation des variables dans le premier plan factoriel")
+text(cor.var[,c(1,2)],colnames(correcteurs[-1]))
+curve(sqrt(1-x^2),-1,1,add=TRUE)
+curve(-sqrt(1-x^2),-1,1,add=TRUE)
+abline(h=0,v=0)
+#représentation des variables dans le deuxième plan factoriel
+x11()
+plot(-1:1,-1:1,xlab = "Axe 1",ylab="Axe 3",type="n",main="Représentation des variables dans le deuxième plan factoriel")
+text(cor.var[,c(1,3)],colnames(correcteurs[-1]))
+curve(sqrt(1-x^2),-1,1,add=TRUE)
+curve(-sqrt(1-x^2),-1,1,add=TRUE)
+abline(h=0,v=0)
+
+######reconstitution######
+round(C[,1]%*%t(resume$vectors[,1]),digits=2)
+round(C[,1]%*%t(resume$vectors[,1])+C[,2]%*%t(resume$vectors[,2]),digits=2)
+round(C[,1]%*%t(resume$vectors[,1])+C[,2]%*%t(resume$vectors[,2])+C[,3]%*%t(resume$vectors[,3]),digits=2)
+round(C[,1]%*%t(resume$vectors[,1])+C[,2]%*%t(resume$vectors[,2])+C[,3]%*%t(resume$vectors[,3])+C[,4]%*%t(resume$vectors[,4]),digits=2)
+
+######valeurs manquantes######
+correcteurs$moy.median[8]<-mean(correcteurs$moy.median,na.rm = TRUE)
+correcteurs$std.median[8]<-mean(correcteurs$std.median,na.rm = TRUE)
+correcteurs$std.final[2]<-mean(correcteurs$std.final,na.rm = TRUE)
+correcteurs$moy.final[2]<-mean(correcteurs$moy.final,na.rm = TRUE)
+#acp sur le tableau avec les valeurs manquantes
+#convertir le data.frame en matrice pour faciliter les calculs
+Y<-as.matrix(correcteurs[2:5],nrow=8,rcol=4)
+rownames(Y)<-c("Cor1","Cor2","Cor3","Cor4","Cor5","Cor6","Cor7","Cor8")
+round(Y,digits=2)
+#centrage de la matrice
+Yc<-t(t(Y)-apply(Y,2,mean))
+round(Yc,digits = 2)
+#matrice de variance
+Yv<-(1/8)*(t(Yc)%*%Yc)
+round(Yv,digits = 2)
+#calul des valeurs propres et des vecteurs propres
+(resume<-eigen(Yv))
+#recuperation de la matrice des vecteurs propres
+UY<-resume$vectors
+round(UY, digits=2)
+#calcul de la matrice des composantes principales
+CY<-Yc%*%UY
+rownames(CY)<-c("Cor1","Cor2","Cor3","Cor4","Cor5","Cor6","Cor7","Cor8")
+round(CY,digits = 2)
+
+#####représentations graphiques#####
+#représentation des individus dans le premier plan factoriel
+x11()
+plot(CY[,c(1,2)],xlab = "C[,1]",ylab="C[,2]",type="n", main="Représentation des individus dans le premier plan factoriel")
+text(CY[,c(1,2)],labels=correcteurs$correcteur)
+abline(h=0,v=0)
+#représentation des individus dans le deuxième plan factoriel
+x11()
+plot(CY[,c(1,3)],xlab = "C[,1]",ylab="C[,3]",type="n", main="Représentation des individus dans le deuxième plan factoriel")
+text(CY[,c(1,3)],labels=correcteurs$correcteur)
+abline(h=0,v=0)
+\end{lstlisting}
 
 
 
+
+	
 
 %--------------------------------------------------------------------------------------------------------------
 

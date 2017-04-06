@@ -1,0 +1,31 @@
+\BOOKMARK [1][-]{section.1}{Statistique Descriptive}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Notes}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Analyse}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Corr\351lation}{subsection.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{Donn\351es crabs}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Analyse}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Corr\351lation}{subsection.1.2}% 7
+\BOOKMARK [2][-]{subsection.1.3}{Donn\351es Pima}{section.1}% 8
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Analyse}{subsection.1.3}% 9
+\BOOKMARK [3][-]{subsubsection.1.3.2}{Liens statistiques}{subsection.1.3}% 10
+\BOOKMARK [1][-]{section.2}{Analyse en composantes principales}{}% 11
+\BOOKMARK [2][-]{subsection.2.1}{Exercice th\351orique}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Axes factoriels}{subsection.2.1}% 13
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Composantes principales}{subsection.2.1}% 14
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Repr\351sentation dans le premier plan factoriel}{subsection.2.1}% 15
+\BOOKMARK [3][-]{subsubsection.2.1.4}{Calculer l'expression =1kcu }{subsection.2.1}% 16
+\BOOKMARK [3][-]{subsubsection.2.1.5}{ACP et deux premiers plans factoriels}{subsection.2.1}% 17
+\BOOKMARK [2][-]{subsection.2.2}{Utilisation des outils R}{section.2}% 18
+\BOOKMARK [2][-]{subsection.2.3}{Donn\351es Crabs}{section.2}% 19
+\BOOKMARK [3][-]{subsubsection.2.3.1}{ACP}{subsection.2.3}% 20
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Am\351lioration}{subsection.2.3}% 21
+\BOOKMARK [2][-]{subsection.2.4}{Donn\351es Pima}{section.2}% 22
+\BOOKMARK [1][-]{section.3}{Annexes}{}% 23
+\BOOKMARK [2][-]{subsection.3.1}{Statistique descriptive}{section.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Notes}{subsection.3.1}% 25
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Crabs}{subsection.3.1}% 26
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Pima}{subsection.3.1}% 27
+\BOOKMARK [2][-]{subsection.3.2}{Analyse en composantes principales}{section.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Exercice th\351orique}{subsection.3.2}% 29
+\BOOKMARK [3][-]{subsubsection.3.2.2}{ACP Crabs}{subsection.3.2}% 30
+\BOOKMARK [1][-]{section.4}{code}{}% 31

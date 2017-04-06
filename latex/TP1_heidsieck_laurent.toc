@@ -1,6 +1,32 @@
 \select@language {french}
-\contentsline {chapter}{\numberline {1}Statistique Descriptive}{4}
-\contentsline {section}{\numberline {1.1}Notes}{4}
-\contentsline {subsection}{\numberline {1.1.1}Analyse 1}{4}
-\contentsline {subsection}{\numberline {1.1.2}Analyse 2}{5}
-\contentsline {subsection}{\numberline {1.1.3}Annexes}{6}
+\contentsline {section}{\numberline {1}Statistique Descriptive}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Notes}{4}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Analyse}{4}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Corr\'elation}{4}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}Donn\'ees crabs}{4}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Analyse}{4}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Corr\'elation}{5}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Donn\'ees Pima}{5}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}Analyse}{5}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}Liens statistiques}{5}{subsubsection.1.3.2}
+\contentsline {section}{\numberline {2}Analyse en composantes principales}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Exercice th\'eorique}{7}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Axes factoriels}{7}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Composantes principales}{7}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Repr\'esentation dans le premier plan factoriel}{7}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Calculer l'expression $\DOTSB \sum@ \slimits@ _{\alpha =1}^{k}c_{\alpha }u_{\alpha } }{7}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}ACP et deux premiers plans factoriels}{8}{subsubsection.2.1.5}
+\contentsline {subsection}{\numberline {2.2}Utilisation des outils R}{8}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Donn\'ees Crabs}{9}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}ACP}{9}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Am\'elioration}{9}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {2.4}Donn\'ees Pima}{9}{subsection.2.4}
+\contentsline {section}{\numberline {3}Annexes}{10}{section.3}
+\contentsline {subsection}{\numberline {3.1}Statistique descriptive}{10}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Notes}{10}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Crabs}{10}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Pima}{11}{subsubsection.3.1.3}
+\contentsline {subsection}{\numberline {3.2}Analyse en composantes principales}{12}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Exercice th\'eorique}{12}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}ACP Crabs}{13}{subsubsection.3.2.2}
+\contentsline {section}{\numberline {4}code}{13}{section.4}
